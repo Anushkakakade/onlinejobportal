@@ -1,7 +1,27 @@
 <?php
 // index.php
 // Main landing page – no DB needed yet
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+$keyword = "";
+$location = "";
+$searchMessage = "";
+
+if (isset($_GET['keyword']) || isset($_GET['location'])) {
+    $keyword = htmlspecialchars($_GET['keyword'] ?? "");
+    $location = htmlspecialchars($_GET['location'] ?? "");
+
+    if ($keyword == "" && $location == "") {
+        $searchMessage = "Please enter job keyword or select a location.";
+    } else {
+        $searchMessage = "Showing results for
+            <strong>$keyword</strong>
+            in <strong>$location</strong>";
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -160,8 +180,8 @@
 <header>
     <div class="logo">ONLINE JOB PORTAL</div>
     <nav>
-        <a href="login.php">Login</a>
-        <a href="register.php">Register</a>
+        <a href="auth/login.php">Login</a>
+        <a href="auth/register.php">Register</a>
     </nav>
 </header>
 
@@ -171,7 +191,7 @@
         <h1>FIND YOUR DREAM JOB</h1>
         <p>Search for the latest jobs in top companies.</p>
 
-        <form class="search-box" method="GET" action="#">
+        <form class="search-box" method="GET" action="index.php">
             <input type="text" name="keyword" placeholder="Job Title, Company or Keywords">
             <select name="location">
                 <option value="">Location</option>
@@ -183,7 +203,23 @@
             </select>
             <button type="submit">Search</button>
         </form>
+	
+	<?php if ($searchMessage != ""): ?>
+    <div style="
+        margin-top:15px;
+        background:#ffffff;
+        color:#333;
+        padding:10px 15px;
+        border-radius:4px;
+        font-size:14px;
+        box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    ">
+        <?php echo $searchMessage; ?>
     </div>
+<?php endif; ?>
+  
+
+  </div>
 </section>
 
 <!-- ===== STATS ===== -->
