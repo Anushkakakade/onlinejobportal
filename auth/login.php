@@ -4,38 +4,53 @@ ini_set('display_errors', 1);
 session_start();
 require_once("../config/db.php");
 
+
 $error = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = $_POST['password'];
+    $email = trim($_POST['email']);
+    $password = trim($_POST['password']);
 
-    $query = "SELECT * FROM users WHERE email='$email' AND status=1 LIMIT 1";
-    $result = mysqli_query($conn, $query);
+    // Check if email exists
+    $stmt = $conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (mysqli_num_rows($result) == 1) {
+    if ($result->num_rows == 1) {
 
-        $user = mysqli_fetch_assoc($result);
+        $user = $result->fetch_assoc();
 
+        // 🔐 VERIFY PASSWORD HERE
         if (password_verify($password, $user['password'])) {
 
+            // ✅ STORE SESSION
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
             $_SESSION['name'] = $user['name'];
 
-            header("Location: ../index.php");
+            // Redirect based on role
+            if ($user['role'] == 'admin') {
+                header("Location: ../admin/dashboard.php");
+            } elseif ($user['role'] == 'employer') {
+                header("Location: ../employer/dashboard.php");
+            } else {
+                header("Location: ../index.php");
+            }
+
             exit();
 
         } else {
-            $error = "Invalid password!";
+            $error = "Invalid Password!";
         }
 
     } else {
-        $error = "Email not found!";
+        $error = "Email Not Found!";
     }
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
