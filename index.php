@@ -74,18 +74,20 @@ if (isset($_GET['keyword']) || isset($_GET['location'])) {
 
         /* ===== HERO SECTION ===== */
         .hero {
-            height: 700px;
-            background: linear-gradient(
-                rgba(30, 136, 229, 0.85),
-                rgba(30, 136, 229, 0.85)
-            ),
-            url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover no-repeat;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: #fff;
-        }
+    height: 700px;
+    background: linear-gradient(
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.5)
+    ),
+    url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") 
+    center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+}
+
 
         .hero-content h1 {
             font-size: 42px;
