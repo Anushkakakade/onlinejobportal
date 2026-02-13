@@ -44,51 +44,29 @@ if (isset($_GET['search'])) {
 <head>
 <title>Manage Jobs</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="admin_dashboard.css">
 
-<style>
-body { background:#f4f6f9; }
-
-.sidebar {
-    width:220px;
-    height:100vh;
-    position:fixed;
-    background:#2c3e50;
-    padding-top:20px;
-}
-.sidebar a {
-    color:white;
-    padding:12px;
-    display:block;
-    text-decoration:none;
-}
-.sidebar a:hover { background:#34495e; }
-
-.content {
-    margin-left:230px;
-    padding:20px;
-}
-
-.search-box {
-    display:flex;
-    gap:10px;
-}
-</style>
 </head>
 
 <body>
 
 <!-- Sidebar -->
 <div class="sidebar">
-    <h4 class="text-center text-white">Admin Panel</h4>
-    <a href="dashboard.php">Dashboard</a>
-    <a href="manage_jobs.php" style="background:#1e3799;">Manage Jobs</a>
+<br>
+    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title">Admin</h4>
+<br>   
+ <a href="dashboard.php">Dashboard</a>
+    <a href="manage_jobs.php">Manage Jobs</a>
     <a href="manage_users.php">Manage Users</a>
     <a href="../auth/logout.php">Logout</a>
 </div>
 
 <!-- Content -->
 <div class="content">
-    <h3>Manage Job Listings</h3>
+	<h1 class="dashboard-title" >Admin Dashboard</h1>
+   <br> 
+
+    <h3 ">Manage Job Listings</h3>
 
     <!-- Search -->
     <form method="GET" class="my-4 search-box">

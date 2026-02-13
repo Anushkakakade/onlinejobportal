@@ -1,0 +1,64 @@
+body { font-family: Arial, sans-serif;
+background:#f4f6f9; }
+.sidebar {
+    width:220px;
+    height:100vh;
+    position:fixed;
+    background:#1e3799;
+    padding-top:20px;
+}
+.sidebar a {
+    color:white;
+    padding:12px;
+    display:block;
+    font-size : 16px;
+    margin-left:30px;
+    text-decoration:none;
+}
+.sidebar a:hover { background:#4A69BD; }
+
+.content {
+    margin-left:230px;
+    padding:20px;
+ }
+.search-box {
+    display:flex;
+    gap:10px;
+}
+.search-box input {
+    width: 70%;
+}
+
+.search-box button {
+    padding: 10px 10px;
+    font-size: 16px;
+    width: 20%;
+}
+
+
+.card-box {
+    color:white;
+    padding:20px;
+    border-radius:8px;
+}
+.blue { background:#2980b9; }
+.green { background:#16a085; }
+.orange { background:#f39c12; }
+
+.pending { background:#e74c3c; }
+.approved { background:#1abc9c; }
+.users { background:#f39c12; }
+
+.admin-title {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    
+}
+.dashboard-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    letter-spacing: 0.5px;
+    color: #000;
+}
+

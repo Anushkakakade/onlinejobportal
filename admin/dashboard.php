@@ -40,44 +40,16 @@ $jobs = $conn->query("SELECT * FROM jobs WHERE status='pending' ORDER BY created
 <head>
 <title>Admin Dashboard</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-body { background:#f4f6f9; }
-.sidebar {
-    width:220px;
-    height:100vh;
-    position:fixed;
-    background:#1e3799;
-    padding-top:20px;
-}
-.sidebar a {
-    color:white;
-    padding:12px;
-    display:block;
-    text-decoration:none;
-}
-.sidebar a:hover { background:#34495e; }
+<link rel="stylesheet" href="admin_dashboard.css">
 
-.content {
-    margin-left:230px;
-    padding:20px;
-}
-
-.card-box {
-    color:white;
-    padding:20px;
-    border-radius:8px;
-}
-
-.pending { background:#e74c3c; }
-.approved { background:#1abc9c; }
-.users { background:#f39c12; }
-</style>
 </head>
 
 <body>
-
+<!-- Sidebar -->
 <div class="sidebar">
-    <h4 class="text-center text-white">Admin Panel</h4>
+<br>
+    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title">Admin</h4>
+   <br>
     <a href="dashboard.php">Dashboard</a>
     <a href="manage_jobs.php">Manage Jobs</a>
     <a href="manage_users.php">Manage Users</a>
@@ -85,8 +57,9 @@ body { background:#f4f6f9; }
 </div>
 
 <div class="content">
-    <h3>Admin Dashboard</h3>
-
+	
+    <h1 class="dashboard-title" >Admin Dashboard</h1>
+   <br> 
     <div class="row my-4">
         <div class="col-md-4">
             <div class="card-box pending">
