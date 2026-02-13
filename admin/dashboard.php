@@ -29,7 +29,7 @@ if (isset($_GET['reject'])) {
 // Counts
 $pending = $conn->query("SELECT COUNT(*) as total FROM jobs WHERE status='pending'")->fetch_assoc()['total'];
 $approved = $conn->query("SELECT COUNT(*) as total FROM jobs WHERE status='approved'")->fetch_assoc()['total'];
-$users = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'];
+$users = $conn->query("SELECT COUNT(*) as total FROM users WHERE role != 'admin'")->fetch_assoc()['total'];
 
 // Get Pending Jobs
 $jobs = $conn->query("SELECT * FROM jobs WHERE status='pending' ORDER BY created_at DESC");
@@ -48,7 +48,7 @@ $jobs = $conn->query("SELECT * FROM jobs WHERE status='pending' ORDER BY created
 <!-- Sidebar -->
 <div class="sidebar">
 <br>
-    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title">Admin</h4>
+    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title"><?= htmlspecialchars($_SESSION['name']) ?></h4>
    <br>
     <a href="dashboard.php">Dashboard</a>
     <a href="manage_jobs.php">Manage Jobs</a>

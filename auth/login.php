@@ -24,7 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // 🔐 VERIFY PASSWORD HERE
         if (password_verify($password, $user['password'])) {
-
+           
+		   // Check if blocked
+    if($user['status'] == 'blocked'){
+        $error = "Contact Admin, Your account has been blocked by admin.";
+    } else {
             // ✅ STORE SESSION
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['role'] = $user['role'];
@@ -36,11 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif ($user['role'] == 'employer') {
                 header("Location: ../employer/dashboard.php");
             } else {
-                header("Location: ../index.php");
+                header("Location: ../jobseeker/dashboard.php");
             }
 
             exit();
-
+    }
         } else {
             $error = "Invalid Password!";
         }

@@ -10,6 +10,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
+$admin_id = $_SESSION['user_id'];
+
+
+//Fetch Admin Name
+$admResult = $conn->query("SELECT name FROM users WHERE id = $admin_id LIMIT 1");
+$admData = $admResult->fetch_assoc();
+$admin_name = $admData['name'] ?? "Admin";
+
 // Approve job
 if (isset($_GET['approve'])) {
     $id = intval($_GET['approve']);
@@ -53,7 +61,7 @@ if (isset($_GET['search'])) {
 <!-- Sidebar -->
 <div class="sidebar">
 <br>
-    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title">Admin</h4>
+    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title"><?= htmlspecialchars($admin_name) ?></h4>
 <br>   
  <a href="dashboard.php">Dashboard</a>
     <a href="manage_jobs.php">Manage Jobs</a>

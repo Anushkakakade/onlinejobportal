@@ -10,6 +10,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] != 'admin') {
     exit();
 }
 
+$admin_id = $_SESSION['user_id'];
+
+
+//Fetch Admin Name
+$admResult = $conn->query("SELECT name FROM users WHERE id = $admin_id LIMIT 1");
+$admData = $admResult->fetch_assoc();
+$admin_name = $admData['name'] ?? "Admin";
+
 // Block User
 if(isset($_GET['block'])){
     $id = intval($_GET['block']);
@@ -31,18 +39,18 @@ $search = "";
 if(isset($_GET['search'])){
     $search = $conn->real_escape_string($_GET['search']);
     $users = $conn->query("SELECT * FROM users 
-                           WHERE name LIKE '%$search%' 
+                           WHERE role != 'admin' AND (name LIKE '%$search%' 
                            OR email LIKE '%$search%' 
-                           OR role LIKE '%$search%'
+                           OR role LIKE '%$search%')
                            ORDER BY created_at DESC");
 } else {
-    $users = $conn->query("SELECT * FROM users ORDER BY created_at DESC");
+    $users = $conn->query("SELECT * FROM users WHERE role != 'admin' ORDER BY created_at DESC");
 }
 
 // Counts
-$employers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='employer'")->fetch_assoc()['total'];
-$jobseekers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='jobseeker'")->fetch_assoc()['total'];
-$totalUsers = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()['total'];
+$employers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='employer' AND  role != 'admin'")->fetch_assoc()['total'];
+$jobseekers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role='jobseeker' AND role != 'admin'")->fetch_assoc()['total'];
+$totalUsers = $conn->query("SELECT COUNT(*) as total FROM users WHERE role != 'admin'")->fetch_assoc()['total'];
 
 ?>
 
@@ -60,7 +68,7 @@ $totalUsers = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()
 <!-- Sidebar -->
 <div class="sidebar">
 <br>
-    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title">Admin</h4>
+    <h4 class="text-center text-white fw-bold fs-2 display-5 admin-title"><?= htmlspecialchars($admin_name) ?></h4>
 <br>
     <a href="dashboard.php">Dashboard</a>
     <a href="manage_jobs.php">Manage Jobs</a>
@@ -127,8 +135,8 @@ $totalUsers = $conn->query("SELECT COUNT(*) as total FROM users")->fetch_assoc()
 
                 <?php while($row = $users->fetch_assoc()): ?>
                     <tr>
-                        <td><?= $row['name'] ?></td>
-                        <td><?= $row['email'] ?></td>
+                        <td><?= htmlspecialchars($row['name']) ?></td>
+			<td><?= htmlspecialchars($row['email']) ?></td>
                         <td><?= ucfirst($row['role']) ?></td>
                         <td><?= date("Y-m-d", strtotime($row['created_at'])) ?></td>
                         <td>

@@ -32,7 +32,7 @@ if (isset($_GET['keyword']) || isset($_GET['location'])) {
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <style>
+ <style>
         * {
             margin: 0;
             padding: 0;
